@@ -20,12 +20,18 @@ import (
 	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
 
 	"github.com/evmos/evmos/v14/utils"
+	v14 "github.com/evmos/evmos/v14/app/upgrades/v14"
+	// v14 "github.com/evmos/evmos/v14" // Add this line to import the package
+	// v14 "github.com/evmos/evmos/v14/app/upgrades/v14"
 )
 
 // FlagGenesisTime defines the genesis time in string format
 const FlagGenesisTime = "genesis-time"
 
-var migrationMap = genutiltypes.MigrationMap{}
+// var migrationMap = genutiltypes.MigrationMap{}
+var migrationMap = genutiltypes.MigrationMap{
+    "v14": v14.MigrateGenesis,
+}
 
 // GetMigrationCallback returns a MigrationCallback for a given version.
 func GetMigrationCallback(version, chainID string) genutiltypes.MigrationCallback {
