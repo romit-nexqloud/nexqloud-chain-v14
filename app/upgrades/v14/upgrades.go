@@ -211,8 +211,8 @@ func MigrateGenesis(appState genutiltypes.AppMap, clientCtx client.Context) genu
 		var authState authtypes.GenesisState
 		clientCtx.Codec.MustUnmarshalJSON(appState[authtypes.ModuleName], &authState)
 
-		// Perform any necessary updates to the auth state
-		authState.Params.MaxMemoCharacters = 256
+		// // Perform any necessary updates to the auth state
+		// authState.Params.MaxMemoCharacters = 256
 
 		appState[authtypes.ModuleName] = clientCtx.Codec.MustMarshalJSON(&authState)
 	}
