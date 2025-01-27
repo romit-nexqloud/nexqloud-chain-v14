@@ -38,6 +38,7 @@ func GetMigrationCallback(version, chainID string) genutiltypes.MigrationCallbac
 	// if !utils.IsMainnet(chainID) {
 	// 	version = fmt.Sprintf("%s%s", "t", version)
 	// }
+	fmt.Printf("GetMigrationCallback: version=%s, chainID=%s\n", version, chainID)
 	return migrationMap[version]
 }
 // func GetMigrationCallback(version, chainID string) genutiltypes.MigrationCallback {
