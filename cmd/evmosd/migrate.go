@@ -19,8 +19,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/version"
 	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
 
-	"github.com/evmos/evmos/v14/utils"
 	v14 "github.com/evmos/evmos/v14/app/upgrades/v14"
+	// "github.com/evmos/evmos/v14/utils"
 	// v14 "github.com/evmos/evmos/v14" // Add this line to import the package
 	// v14 "github.com/evmos/evmos/v14/app/upgrades/v14"
 )
@@ -35,12 +35,27 @@ var migrationMap = genutiltypes.MigrationMap{
 
 // GetMigrationCallback returns a MigrationCallback for a given version.
 func GetMigrationCallback(version, chainID string) genutiltypes.MigrationCallback {
-	if !utils.IsMainnet(chainID) {
-		version = fmt.Sprintf("%s%s", "t", version)
-	}
-
+	// if !utils.IsMainnet(chainID) {
+	// 	version = fmt.Sprintf("%s%s", "t", version)
+	// }
 	return migrationMap[version]
 }
+// func GetMigrationCallback(version, chainID string) genutiltypes.MigrationCallback {
+// 	log.Printf("Entering GetMigrationCallback: version=%s, chainID=%s\n", version, chainID)
+
+// 	// Log the contents of migrationMap
+// 	log.Printf("MigrationMap contents: %+v\n", migrationMap)
+
+// 	callback := migrationMap[version]
+// 	if callback == nil {
+// 		log.Printf("No migration callback found for version: %s\n", version)
+// 	} else {
+// 		log.Printf("Migration callback found for version: %s\n", version)
+// 	}
+
+// 	log.Printf("Exiting GetMigrationCallback\n")
+// 	return callback
+// }
 
 // MigrateGenesisCmd returns a command to execute genesis state migration.
 func MigrateGenesisCmd() *cobra.Command {

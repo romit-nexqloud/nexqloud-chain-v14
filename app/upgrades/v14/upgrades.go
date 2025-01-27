@@ -9,7 +9,6 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
 	client "github.com/cosmos/cosmos-sdk/client"
-	// banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
@@ -165,41 +164,60 @@ func EnableVestingExtension(ctx sdk.Context, evmKeeper *evmkeeper.Keeper) error 
 	return evmKeeper.SetParams(ctx, params)
 }
 
+// func MigrateGenesis(appState genutiltypes.AppMap, clientCtx client.Context) genutiltypes.AppMap {
+//     // Example: Update the auth module's state
+//     if appState[authtypes.ModuleName] != nil {
+//         var authState authtypes.GenesisState
+//         clientCtx.Codec.MustUnmarshalJSON(appState[authtypes.ModuleName], &authState)
+
+//         // Perform any necessary updates to the auth state
+//         authState.Params.MaxMemoCharacters = 256
+
+//         appState[authtypes.ModuleName] = clientCtx.Codec.MustMarshalJSON(&authState)
+//     }
+
+//     // Example: Update the staking module's state
+//     if appState[stakingtypes.ModuleName] != nil {
+//         var stakingState stakingtypes.GenesisState
+//         clientCtx.Codec.MustUnmarshalJSON(appState[stakingtypes.ModuleName], &stakingState)
+
+//         // Perform any necessary updates to the staking state
+//         stakingState.Params.MaxValidators = 100
+
+//         appState[stakingtypes.ModuleName] = clientCtx.Codec.MustMarshalJSON(&stakingState)
+//     }
+
+//     // Example: Update the bank module's state
+//     if appState[banktypes.ModuleName] != nil {
+//         var bankState banktypes.GenesisState
+//         clientCtx.Codec.MustUnmarshalJSON(appState[banktypes.ModuleName], &bankState)
+
+//         // Perform any necessary updates to the bank state
+// 		bankState.SendEnabled = []banktypes.SendEnabled{}
+
+//         appState[banktypes.ModuleName] = clientCtx.Codec.MustMarshalJSON(&bankState)
+//     }
+
+//     // Add similar logic for other modules (e.g., gov, distribution, slashing, etc.)
+
+//     return appState
+// }
+
+
+// MigrateGenesis updates the genesis state for the v14 upgrade.
 func MigrateGenesis(appState genutiltypes.AppMap, clientCtx client.Context) genutiltypes.AppMap {
-    // Example: Update the auth module's state
-    if appState[authtypes.ModuleName] != nil {
-        var authState authtypes.GenesisState
-        clientCtx.Codec.MustUnmarshalJSON(appState[authtypes.ModuleName], &authState)
+	// Example: Update the auth module's state
+	if appState[authtypes.ModuleName] != nil {
+		var authState authtypes.GenesisState
+		clientCtx.Codec.MustUnmarshalJSON(appState[authtypes.ModuleName], &authState)
 
-        // Perform any necessary updates to the auth state
-        authState.Params.MaxMemoCharacters = 256
+		// Perform any necessary updates to the auth state
+		authState.Params.MaxMemoCharacters = 256
 
-        appState[authtypes.ModuleName] = clientCtx.Codec.MustMarshalJSON(&authState)
-    }
+		appState[authtypes.ModuleName] = clientCtx.Codec.MustMarshalJSON(&authState)
+	}
 
-    // Example: Update the staking module's state
-    if appState[stakingtypes.ModuleName] != nil {
-        var stakingState stakingtypes.GenesisState
-        clientCtx.Codec.MustUnmarshalJSON(appState[stakingtypes.ModuleName], &stakingState)
+	// Add similar logic for other modules (e.g., staking, bank, etc.)
 
-        // Perform any necessary updates to the staking state
-        stakingState.Params.MaxValidators = 100
-
-        appState[stakingtypes.ModuleName] = clientCtx.Codec.MustMarshalJSON(&stakingState)
-    }
-
-    // Example: Update the bank module's state
-    if appState[banktypes.ModuleName] != nil {
-        var bankState banktypes.GenesisState
-        clientCtx.Codec.MustUnmarshalJSON(appState[banktypes.ModuleName], &bankState)
-
-        // Perform any necessary updates to the bank state
-		bankState.SendEnabled = []banktypes.SendEnabled{}
-
-        appState[banktypes.ModuleName] = clientCtx.Codec.MustMarshalJSON(&bankState)
-    }
-
-    // Add similar logic for other modules (e.g., gov, distribution, slashing, etc.)
-
-    return appState
+	return appState
 }
